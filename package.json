@@ -1,0 +1,27 @@
+{
+    "name": "apbot",
+    "version": "1.0.0",
+    "description": "my private bot",
+    "main": "src/index.ts",
+    "scripts": {
+        "start": "ts-node src/index.ts",
+        "dev": "ts-node-dev --respawn src/index.ts"
+    },
+    "author": "APdev93",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^22.15.30",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "@hapi/boom": "^10.0.1",
+        "baileys-host": "^6.7.30",
+        "fs": "^0.0.1-security",
+        "path": "^0.12.7",
+        "pino": "^9.7.0",
+        "pino-pretty": "^13.0.0",
+        "util": "^0.12.5"
+    }
+}
