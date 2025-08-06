@@ -1,5 +1,5 @@
 import { Boom } from "@hapi/boom";
-import { ConnectionState, DisconnectReason } from "baileys-host";
+import { ConnectionState, DisconnectReason } from "@whiskeysockets/baileys";
 import startSocket, { session } from "../config/socket";
 import { createLogger } from "../utils";
 import { config } from "../config";

@@ -1,4 +1,4 @@
-import { WASocket, proto } from "baileys-host";
+import { WASocket, proto } from "@whiskeysockets/baileys";
 
 export interface Plugin {
     name: string;

@@ -4,7 +4,9 @@
     "description": "my private bot",
     "main": "src/index.ts",
     "scripts": {
-        "start": "ts-node src/index.ts",
+        "start": "node dist/index.js",
+        "start:ts": "ts-node src/index.ts",
+        "build": "tsc",
         "dev": "ts-node-dev --respawn src/index.ts"
     },
     "author": "APdev93",
@@ -17,7 +19,7 @@
     },
     "dependencies": {
         "@hapi/boom": "^10.0.1",
-        "baileys-host": "^6.7.30",
+        "@whiskeysockets/baileys": "^6.7.18",
         "fs": "^0.0.1-security",
         "path": "^0.12.7",
         "pino": "^9.7.0",

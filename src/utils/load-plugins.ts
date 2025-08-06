@@ -12,8 +12,9 @@ export const loadPlugins = async () => {
 
     const pluginDir = path.join(__dirname, "..", "plugins");
     logger.debug("Loading from: " + pluginDir);
+    const ext = path.extname(__filename);
 
-    const files = fs.readdirSync(pluginDir).filter((f) => f.endsWith(".ts"));
+    const files = fs.readdirSync(pluginDir).filter((f) => f.endsWith(ext));
 
     logger.debug("beberapa plugin ditemukan: " + files.join(", "));
 

@@ -1,8 +1,13 @@
-import { proto, WASocket, WAMessage, WAMessageContent } from "baileys-host";
-import { config } from "../config";
+import {
+    proto,
+    WASocket,
+    WAMessage,
+    WAMessageContent,
+} from "@whiskeysockets/baileys";
 
 interface SerializedMessage {
     id: string;
+    chat: string;
     type: string;
     sender: string;
     from: string;
@@ -59,6 +64,7 @@ export const extractMessage = (
 
     return {
         id: m.key.id!,
+        chat: m.key.remoteJid!,
         type,
         sender: m.key.fromMe
             ? sock.user?.id || "me"

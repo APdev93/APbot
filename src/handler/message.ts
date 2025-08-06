@@ -1,5 +1,5 @@
 import { createLogger } from "../utils";
-import type { WAMessage, MessageUpsertType } from "baileys-host";
+import type { WAMessage, MessageUpsertType } from "@whiskeysockets/baileys";
 import { extractMessage } from "../utils/message";
 import { session } from "../config/socket";
 import { plugins } from "../utils/load-plugins";
@@ -22,7 +22,8 @@ export const handleMessage = async ({
     if (
         m.message.key &&
         config.socket.auto_read_status &&
-        m.message.key.remoteJid === "status@broadcast"
+        m.message.key.remoteJid === "status@broadcast" &&
+        m.type !== "reactionMessage"
     ) {
         const emoji = [
             "❤️",
@@ -58,7 +59,6 @@ export const handleMessage = async ({
     const message = m?.message;
     const text = m?.content ?? "";
     const sender = m.sender.split("@")[0].split(":")[0] + "@s.whatsapp.net";
-
     let log = `${m.type} - ${sender}: ${text}`;
 
     logger.info(log);
@@ -84,6 +84,8 @@ export const handleMessage = async ({
                 ? text === plugin.command
                 : plugin.command.test(text);
         if (match) {
+            logger.info(`Running plugin: ${plugin.name} for command: ${text}`);
+
             await plugin.run({ session, message, text });
         }
     }
