@@ -19,6 +19,7 @@ export const loadPlugins = async () => {
     logger.debug("beberapa plugin ditemukan: " + files.join(", "));
 
     logger.info(`Berhasil memuat ${files}`);
+
     for (const file of files) {
         const filePath = path.join(pluginDir, file);
         const pluginModule = await import(filePath);

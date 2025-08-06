@@ -1,12 +1,14 @@
 import { createLogger } from "../utils";
-import type { WAMessage, MessageUpsertType } from "@whiskeysockets/baileys";
+import type { WAMessage, MessageUpsertType } from "baileys";
 import { extractMessage } from "../utils/message";
 import { session } from "../config/socket";
 import { plugins } from "../utils/load-plugins";
 import { config } from "../config";
+import NodeCache from "@cacheable/node-cache";
 import util from "util";
 
 const logger = createLogger("message");
+let cache = new NodeCache();
 
 export const handleMessage = async ({
     messages,
@@ -18,6 +20,8 @@ export const handleMessage = async ({
     const sock = session;
     const m = extractMessage(session, messages);
     if (!m) return;
+    if (cache.has(m.id)) return;
+    cache.set(m.id, true, 1000 * 60 * 60);
 
     if (
         m.message.key &&
@@ -26,17 +30,106 @@ export const handleMessage = async ({
         m.type !== "reactionMessage"
     ) {
         const emoji = [
+            "😀",
+            "😂",
+            "😅",
+            "😍",
+            "😎",
+            "😭",
+            "😡",
+            "🤔",
+            "🥶",
+            "🥳",
+            "👍",
+            "👎",
+            "👏",
+            "🙏",
+            "🤝",
+            "✌️",
+            "👌",
+            "👋",
+            "🖖",
+            "🤟",
+            "🐶",
+            "🐱",
+            "🦊",
+            "🐼",
+            "🐯",
+            "🐷",
+            "🦁",
+            "🐸",
+            "🐵",
+            "🐢",
+            "🍎",
+            "🍌",
+            "🍇",
+            "🍓",
+            "🍕",
+            "🍔",
+            "🍟",
+            "🍩",
+            "🍪",
+            "🍵",
+            "⚽",
+            "🏀",
+            "🏈",
+            "⚾",
+            "🎾",
+            "🏐",
+            "🏓",
+            "🎯",
+            "🥊",
+            "🏆",
+            "☀️",
+            "🌤️",
+            "🌧️",
+            "⛈️",
+            "🌈",
+            "❄️",
+            "🌪️",
+            "🌊",
+            "🌙",
+            "⭐",
+            "🚗",
+            "🚕",
+            "🚙",
+            "🚌",
+            "🚓",
+            "🏍️",
+            "🚲",
+            "🚁",
+            "✈️",
+            "🚀",
+            "🏠",
+            "🏢",
+            "🏫",
+            "🏥",
+            "🏛️",
+            "🏟️",
+            "🏖️",
+            "🏜️",
+            "🗽",
+            "🗼",
+            "📱",
+            "💻",
+            "🖨️",
+            "🔧",
+            "🪛",
+            "🔒",
+            "🔑",
+            "💡",
+            "🧯",
+            "📷",
             "❤️",
-            "🧡",
-            "💛",
-            "💚",
-            "💙",
-            "💜",
-            "🖤",
-            "🤍",
-            "🤎",
-            "💖",
-            "💗",
+            "💔",
+            "💯",
+            "✅",
+            "❌",
+            "⚠️",
+            "🔁",
+            "🔄",
+            "♻️",
+            "🎉",
         ];
 
         let randomEmoji = emoji[Math.floor(Math.random() * emoji.length)];

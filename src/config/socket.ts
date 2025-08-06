@@ -4,8 +4,8 @@ import makeWASocket, {
     fetchLatestBaileysVersion,
     makeCacheableSignalKeyStore,
     useMultiFileAuthState,
-} from "@whiskeysockets/baileys";
-import type { WASocket, AuthenticationState } from "@whiskeysockets/baileys";
+} from "baileys";
+import type { WASocket } from "baileys";
 
 import { createLogger } from "../utils";
 import { config } from "./config";

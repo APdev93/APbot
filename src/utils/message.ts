@@ -1,9 +1,4 @@
-import {
-    proto,
-    WASocket,
-    WAMessage,
-    WAMessageContent,
-} from "@whiskeysockets/baileys";
+import { proto, WASocket, WAMessage, WAMessageContent } from "baileys";
 
 interface SerializedMessage {
     id: string;

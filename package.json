@@ -18,8 +18,9 @@
         "typescript": "^5.8.3"
     },
     "dependencies": {
+        "@cacheable/node-cache": "^1.6.1",
         "@hapi/boom": "^10.0.1",
-        "@whiskeysockets/baileys": "^6.7.18",
+        "baileys": "^6.7.18",
         "fs": "^0.0.1-security",
         "path": "^0.12.7",
         "pino": "^9.7.0",

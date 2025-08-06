@@ -1,5 +1,5 @@
 import { Boom } from "@hapi/boom";
-import { ConnectionState, DisconnectReason } from "@whiskeysockets/baileys";
+import { ConnectionState, DisconnectReason } from "baileys";
 import startSocket, { session } from "../config/socket";
 import { createLogger } from "../utils";
 import { config } from "../config";
@@ -18,7 +18,7 @@ export const handleConnection = async (
     if (connection === "open") {
         logger.info("Connected to WhatsApp!");
         session.sendMessage(`${config.socket.whatsapp}@s.whatsapp.net`, {
-            text: "Bot Connected.",
+            text: "Bot Connected!",
         });
     }
 
