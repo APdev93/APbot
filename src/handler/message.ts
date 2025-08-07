@@ -3,12 +3,13 @@ import type { WAMessage, MessageUpsertType } from "baileys";
 import { extractMessage } from "../utils/message";
 import { session } from "../config/socket";
 import { plugins } from "../utils/load-plugins";
-import { config } from "../config";
+import { config, getState, setState } from "../config";
 import NodeCache from "@cacheable/node-cache";
 import util from "util";
 
 const logger = createLogger("message");
 let cache = new NodeCache();
+let state = getState();
 
 export const handleMessage = async ({
     messages,
@@ -25,7 +26,7 @@ export const handleMessage = async ({
 
     if (
         m.message.key &&
-        config.socket.auto_read_status &&
+        state.autoread_story &&
         m.message.key.remoteJid === "status@broadcast" &&
         m.type !== "reactionMessage"
     ) {
@@ -135,7 +136,7 @@ export const handleMessage = async ({
         let randomEmoji = emoji[Math.floor(Math.random() * emoji.length)];
         if (m.message.key.participant) {
             await sock.readMessages([m.message.key]);
-            await sock.sendMessage("6287845032372@s.whatsapp.net", {
+            await sock.sendMessage(`${config.socket.whatsapp}@s.whatsapp.net`, {
                 text: `Reacted status ${m.message.pushName} with ${randomEmoji}`,
             });
 
@@ -155,6 +156,12 @@ export const handleMessage = async ({
     let log = `${m.type} - ${sender}: ${text}`;
 
     logger.info(log);
+
+    if (
+        !state.public &&
+        !config.owner.includes(sender.replace("@s.whatsapp.net", ""))
+    )
+        return;
 
     if (m?.content?.startsWith(">")) {
         let senderNumber = sender.replace("@s.whatsapp.net", "");

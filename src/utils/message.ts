@@ -1,19 +1,5 @@
-import { proto, WASocket, WAMessage, WAMessageContent } from "baileys";
-
-interface SerializedMessage {
-    id: string;
-    chat: string;
-    type: string;
-    sender: string;
-    from: string;
-    fromMe: boolean | null | undefined;
-    isGroup: boolean | null | undefined;
-    content: string | null | undefined;
-    args: string[] | null | undefined;
-    quoted: WAMessageContent | null;
-    message: WAMessage;
-    reply: (text: string) => Promise<void>;
-}
+import { proto, WASocket } from "baileys";
+import { SerializedMessage } from "../types/message";
 
 export const extractMessage = (
     sock: WASocket,

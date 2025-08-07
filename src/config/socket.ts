@@ -52,3 +52,20 @@ export default async function startSocket(): Promise<WASocket> {
     session = sock;
     return sock;
 }
+
+export const restartSocket = async (): Promise<void> => {
+    let msg = new Error("Restarting Socket...");
+
+    logger.warn(msg.message);
+    logger.info("Restarting Socket...");
+
+    session.end(msg);
+    await delay(1000);
+
+    session = await startSocket();
+    logger.info("Socket restarted successfully.");
+
+    session.sendMessage(`${config.socket.whatsapp}@s.whatsapp.net`, {
+        text: "Bot restarted successfully.",
+    });
+};
